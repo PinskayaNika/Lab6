@@ -29,13 +29,13 @@ public class StoreActor extends AbstractActor {
 
                 //принимает запрос на получение случайного сервера
                 .match(GetRandomServerPort.class, msg -> {
-                    Random rand = new Random();
-                    int length = serversPortList.size();
-                    int randIndx = rand.nextInt(length);
-                    while (serversPortList.get(randIndx).equals(msg.getRandomPort())) {
-                        randIndx = rand.nextInt(length);
-                    }
-                    getSender().tell(Integer.parseInt(serversPortList.get(randIndx)), ActorRef.noSender());
+                            Random rand = new Random();
+                            int length = serversPortList.size();
+                            int randIndx = rand.nextInt(length);
+                            while (serversPortList.get(randIndx).equals(msg.getRandomPort())) {
+                                randIndx = rand.nextInt(length);
+                            }
+                            getSender().tell(Integer.parseInt(serversPortList.get(randIndx)), ActorRef.noSender());
                         }
                 ).build();
     }
