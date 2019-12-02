@@ -4,13 +4,17 @@ package com.examples.akkahttpserver;
 // на случайный сервер, уменьшая счетчик на 1. Либо осуществляет get для данного url и
 // возвращает.
 
+import akka.NotUsed;
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.actor.Props;
+import akka.http.javadsl.ConnectHttp;
 import akka.http.javadsl.Http;
+import akka.http.javadsl.ServerBinding;
 import akka.http.javadsl.model.HttpRequest;
 import akka.http.javadsl.model.HttpResponse;
 import akka.stream.ActorMaterializer;
+import akka.stream.javadsl.Flow;
 import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.KeeperException;
 import org.apache.zookeeper.ZooDefs;
@@ -72,6 +76,11 @@ public class AkkaHttpServer {
 
         final ActorMaterializer materializer = ActorMaterializer.create(system);
 
-        
+        final Flow<HttpRequest, HttpResponse, NotUsed> routeFlow = ;
+        final CompletionStage<ServerBinding> binding = http.bindAndHandle(
+                routeFlow,
+                ConnectHttp.toHost(LOCALHOST, )
+
+        )
     }
 }
