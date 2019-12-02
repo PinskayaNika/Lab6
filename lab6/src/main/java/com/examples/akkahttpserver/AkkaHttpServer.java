@@ -79,8 +79,10 @@ public class AkkaHttpServer {
         final Flow<HttpRequest, HttpResponse, NotUsed> routeFlow = ;
         final CompletionStage<ServerBinding> binding = http.bindAndHandle(
                 routeFlow,
-                ConnectHttp.toHost(LOCALHOST, )
+                ConnectHttp.toHost(LOCALHOST, port),
+                materializer
+        );
 
-        )
+        
     }
 }
