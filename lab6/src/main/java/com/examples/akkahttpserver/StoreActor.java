@@ -27,7 +27,7 @@ public class StoreActor extends AbstractActor {
                 )
 
                 //принимает запрос на получение случайного сервера
-                .match(TestingResult.class, msg -> {
+                .match(GetRandomServerPort.class, msg -> {
                             Map<Integer, Integer> temp;
                             if (data.containsKey(msg.getURL())) {
                                 temp = data.get(msg.getURL());
