@@ -4,6 +4,9 @@ package com.examples.akkahttpserver;
 // на случайный сервер, уменьшая счетчик на 1. Либо осуществляет get для данного url и
 // возвращает.
 
+import akka.actor.ActorRef;
+import akka.actor.ActorSystem;
+import akka.actor.Props;
 import akka.http.javadsl.Http;
 import akka.http.javadsl.model.HttpRequest;
 import akka.http.javadsl.model.HttpResponse;
@@ -15,17 +18,24 @@ import org.apache.zookeeper.ZooKeeper;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import java.util.concurrent.CompletionStage;
 
 public class AkkaHttpServer {
     private static ZooKeeper zooKeeper;
+    private static int port;
+    private static ActorRef storageActor;
     private static final String ROUTES = "routes";
     private static final String LOCALHOST = "localhost";
     private static final String SERVER_INFO = "Server online at http://localhost:8080/\nPress RETURN to stop...";
 
     public static void main (String[] args) throws IOException, KeeperException, InterruptedException {
 
-        
+        Scanner in = new Scanner(System.in);
+        port = in.nextInt();
+
+        ActorSystem system = ActorSystem.create(ROUTES);
+        storageActor = system.actorOf(Props.create(StoreActor.class));
 // подключение к зукиперу внутри программы
         zooKeeper = new ZooKeeper(
                 "127.0.0.1:2181",
