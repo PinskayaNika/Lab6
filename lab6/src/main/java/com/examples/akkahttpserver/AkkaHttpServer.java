@@ -34,6 +34,9 @@ public class AkkaHttpServer {
     private static final String ROUTES = "routes";
     private static final String LOCALHOST = "localhost";
     private static final String SERVER_INFO = "Server online at http://localhost:";
+    private static final String URL = "url";
+    private static final String LOCALHOST = "localhost";
+
 
     public static void main (String[] args) throws IOException, KeeperException, InterruptedException {
 
@@ -95,7 +98,12 @@ public class AkkaHttpServer {
 
     private Route route() {
         return concat(
-                get()
+                get(
+                        () -> parameter(URL, url ->
+                                parameter(COUNT, count -> {
+
+                                }))
+                )
         )
     }
 }
