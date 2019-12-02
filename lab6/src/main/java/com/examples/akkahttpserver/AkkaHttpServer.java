@@ -83,6 +83,10 @@ public class AkkaHttpServer {
                 materializer
         );
 
-        
+        System.out.println(SERVER_INFO);
+        System.in.read();
+        binding
+                .thenCompose(ServerBinding::unbind)
+                .thenAccept(unbound -> system.terminate());
     }
 }

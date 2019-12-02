@@ -26,8 +26,8 @@
       <file leaf-file-name="AkkaHttpServer.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lab6/src/main/java/com/examples/akkahttpserver/AkkaHttpServer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="824">
-              <caret line="74" column="8" selection-start-line="74" selection-start-column="8" selection-end-line="74" selection-end-column="8" />
+            <state relative-caret-position="710">
+              <caret line="89" column="59" selection-start-line="89" selection-start-column="59" selection-end-line="89" selection-end-column="59" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -240,7 +240,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="96" y="25" width="1098" height="1050" extended-state="0" />
+    <frame x="-106" y="25" width="1098" height="1050" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
@@ -375,8 +375,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lab6/src/main/java/com/examples/akkahttpserver/AkkaHttpServer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="824">
-          <caret line="74" column="8" selection-start-line="74" selection-start-column="8" selection-end-line="74" selection-end-column="8" />
+        <state relative-caret-position="710">
+          <caret line="89" column="59" selection-start-line="89" selection-start-column="59" selection-end-line="89" selection-end-column="59" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -400,7 +400,7 @@
       </state>
       <state key="FacetStructureConfigurable.UI">
         <settings>
-          <last-edited />
+          <last-edited>No facets are configured</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
@@ -448,7 +448,7 @@
       </state>
       <state key="ProjectLibrariesConfigurable.UI">
         <settings>
-          <last-edited />
+          <last-edited>Maven: com.fasterxml.jackson.core:jackson-annotations:2.9.0</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
