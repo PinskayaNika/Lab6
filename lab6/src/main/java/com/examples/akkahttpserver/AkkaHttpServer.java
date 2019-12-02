@@ -76,7 +76,7 @@ public class AkkaHttpServer {
 
         final ActorMaterializer materializer = ActorMaterializer.create(system);
 
-        final Flow<HttpRequest, HttpResponse, NotUsed> routeFlow = ;
+        final Flow<HttpRequest, HttpResponse, NotUsed> routeFlow = app.route().flow;
         final CompletionStage<ServerBinding> binding = http.bindAndHandle(
                 routeFlow,
                 ConnectHttp.toHost(LOCALHOST, port),
