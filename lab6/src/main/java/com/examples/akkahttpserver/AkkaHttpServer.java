@@ -19,9 +19,13 @@ import java.util.concurrent.CompletionStage;
 
 public class AkkaHttpServer {
     private static ZooKeeper zooKeeper;
+    private static final String ROUTES = "routes";
+    private static final String LOCALHOST = "localhost";
+    private static final String SERVER_INFO = "Server online at http://localhost:8080/\nPress RETURN to stop...";
 
     public static void main (String[] args) throws IOException, KeeperException, InterruptedException {
 
+        
 // подключение к зукиперу внутри программы
         zooKeeper = new ZooKeeper(
                 "127.0.0.1:2181",
