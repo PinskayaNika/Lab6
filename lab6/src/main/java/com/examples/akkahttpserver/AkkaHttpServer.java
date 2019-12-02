@@ -35,7 +35,7 @@ public class AkkaHttpServer {
     private static final String LOCALHOST = "localhost";
     private static final String SERVER_INFO = "Server online at http://localhost:";
     private static final String URL = "url";
-    private static final String LOCALHOST = "localhost";
+    private static final String COUNT = "count";
 
 
     public static void main (String[] args) throws IOException, KeeperException, InterruptedException {
