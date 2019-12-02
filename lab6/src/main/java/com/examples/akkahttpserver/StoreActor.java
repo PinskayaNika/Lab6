@@ -12,6 +12,7 @@ import akka.japi.pf.ReceiveBuilder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 public class StoreActor extends AbstractActor {
    List<String> serversPortList;
@@ -28,6 +29,13 @@ public class StoreActor extends AbstractActor {
 
                 //принимает запрос на получение случайного сервера
                 .match(GetRandomServerPort.class, msg -> {
+                    Random rand = new Random();
+                    int length = serversPortList.size();
+                    int randIndx = rand.nextInt(length);
+                    while (serversPortList.get(randIndx).equals(msg.getRandomPort())) {
+                        randIndx = rand.nextInt(length);
+                    }
+                    getSender().tell(Integer.parseInt(serversPortList.get(randIndx)), ActorRef.noSender());
                             Map<Integer, Integer> temp;
                             if (data.containsKey(msg.getURL())) {
                                 temp = data.get(msg.getURL());
