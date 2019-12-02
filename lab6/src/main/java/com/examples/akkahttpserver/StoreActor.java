@@ -20,11 +20,13 @@ public class StoreActor extends AbstractActor {
     public Receive createReceive() {
         return ReceiveBuilder.create()
 
+                //принимает список серверов (который отправит zookeeper watcher)
                 .match(ServerMessage.class, msg -> {
                             serversPortList = msg.getServerPort();
                         }
                 )
 
+                //принимает запрос на получение случайного сервера
                 .match(TestingResult.class, msg -> {
                             Map<Integer, Integer> temp;
                             if (data.containsKey(msg.getURL())) {
