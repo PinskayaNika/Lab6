@@ -10,6 +10,7 @@ import akka.actor.Props;
 import akka.http.javadsl.Http;
 import akka.http.javadsl.model.HttpRequest;
 import akka.http.javadsl.model.HttpResponse;
+import akka.stream.ActorMaterializer;
 import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.KeeperException;
 import org.apache.zookeeper.ZooDefs;
@@ -67,6 +68,10 @@ public class AkkaHttpServer {
             }
         });
 
-        Http http.g
+        final Http http = Http.get(system);
+
+        final ActorMaterializer materializer = ActorMaterializer.create(system);
+
+        
     }
 }
