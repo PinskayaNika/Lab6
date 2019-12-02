@@ -78,7 +78,7 @@ public class AkkaHttpServer {
 
         AkkaHttpServer app = new AkkaHttpServer();
 
-        final Flow<HttpRequest, HttpResponse, NotUsed> routeFlow = app.route().flow;
+        final Flow<HttpRequest, HttpResponse, NotUsed> routeFlow = app.route().flow(system, materializer);
         final CompletionStage<ServerBinding> binding = http.bindAndHandle(
                 routeFlow,
                 ConnectHttp.toHost(LOCALHOST, port),
@@ -91,4 +91,6 @@ public class AkkaHttpServer {
                 .thenCompose(ServerBinding::unbind)
                 .thenAccept(unbound -> system.terminate());
     }
+
+    
 }
