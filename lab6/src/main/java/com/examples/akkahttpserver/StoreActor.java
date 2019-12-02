@@ -15,7 +15,7 @@ import java.util.Map;
 import java.util.Random;
 
 public class StoreActor extends AbstractActor {
-   List<String> serversPortList;
+    List<String> serversPortList;
 
     @Override
     public Receive createReceive() {
@@ -36,15 +36,6 @@ public class StoreActor extends AbstractActor {
                         randIndx = rand.nextInt(length);
                     }
                     getSender().tell(Integer.parseInt(serversPortList.get(randIndx)), ActorRef.noSender());
-                            Map<Integer, Integer> temp;
-                            if (data.containsKey(msg.getURL())) {
-                                temp = data.get(msg.getURL());
-                            } else {
-                                temp = new HashMap<>();
-                            }
-                            temp.put(msg.getCount(), msg.getTime());
-                            data.put(msg.getURL(), temp);
-
                         }
                 ).build();
     }
