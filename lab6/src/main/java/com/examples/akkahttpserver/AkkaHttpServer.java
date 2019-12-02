@@ -83,7 +83,7 @@ public class AkkaHttpServer {
                 materializer
         );
 
-        System.out.println(SERVER_INFO);
+        System.out.println(SERVER_INFO + Integer.toString(port));
         System.in.read();
         binding
                 .thenCompose(ServerBinding::unbind)
