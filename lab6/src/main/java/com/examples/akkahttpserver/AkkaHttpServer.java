@@ -37,7 +37,7 @@ public class AkkaHttpServer {
         ActorSystem system = ActorSystem.create(ROUTES);
 
         storageActor = system.actorOf(Props.create(StoreActor.class));
-        
+
 // подключение к зукиперу внутри программы
         zooKeeper = new ZooKeeper(
                 "127.0.0.1:2181",
@@ -66,5 +66,7 @@ public class AkkaHttpServer {
                 System.out.print(zooKeeper.getData("/servers" + s, c -> {}, null).toString());
             }
         });
+
+        Http http.g
     }
 }
