@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="05d597a5-3372-4f8d-8006-1a4510b97d19" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/lab6/src/main/java/com/examples/akkahttpserver/AkkaHttpServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/lab6/src/main/java/com/examples/akkahttpserver/AkkaHttpServer.java" afterDir="false" />
-    </list>
+    <list default="true" id="05d597a5-3372-4f8d-8006-1a4510b97d19" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/lab6/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -102,7 +100,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="y" value="25" />
     <option name="width" value="985" />
     <option name="height" value="1050" />
@@ -399,7 +397,7 @@
       </state>
       <state key="FacetStructureConfigurable.UI">
         <settings>
-          <last-edited>No facets are configured</last-edited>
+          <last-edited />
           <splitter-proportions>
             <option name="proportions">
               <list>
@@ -447,7 +445,7 @@
       </state>
       <state key="ProjectLibrariesConfigurable.UI">
         <settings>
-          <last-edited>Maven: com.fasterxml.jackson.core:jackson-annotations:2.9.0</last-edited>
+          <last-edited />
           <splitter-proportions>
             <option name="proportions">
               <list>
