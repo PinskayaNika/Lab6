@@ -107,7 +107,8 @@ public class AkkaHttpServer {
                                     int parsedCount = Integer.parseInt(count);
                                     if (parsedCount != 0) {
                                         CompletionStage<HttpResponse> response = Patterns.ask(storageActor, new getRandomServerPort.(Integer.toString(port)), java.time.Duration.ofMillis(TIMEOUT))
-                                                
+                                              .thenCompose(req ->
+                                              fetchToServer)
                                     }
                                 }))
                 )t
