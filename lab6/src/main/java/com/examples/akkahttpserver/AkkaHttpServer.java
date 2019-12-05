@@ -105,7 +105,7 @@ public class AkkaHttpServer {
                                 parameter(COUNT, count -> {
                                     int parsedCount = Integer.parseInt(count);
                                     if (parsedCount != 0) {
-                                        CompletionStage<HttpResponse> response = Patterns.ask(storageActor)
+                                        CompletionStage<HttpResponse> response = Patterns.ask(storageActor, new get)
                                     }
                                 }))
                 )t
