@@ -14,8 +14,10 @@ import akka.http.javadsl.ServerBinding;
 import akka.http.javadsl.model.HttpRequest;
 import akka.http.javadsl.model.HttpResponse;
 import akka.http.javadsl.server.Route;
+import akka.pattern.Patterns;
 import akka.stream.ActorMaterializer;
 import akka.stream.javadsl.Flow;
+import javafx.util.Pair;
 import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.KeeperException;
 import org.apache.zookeeper.ZooDefs;
@@ -101,9 +103,12 @@ public class AkkaHttpServer {
                 get(
                         () -> parameter(URL, url ->
                                 parameter(COUNT, count -> {
-
+                                    int parsedCount = Integer.parseInt(count);
+                                    if (parsedCount != 0) {
+                                        CompletionStage<HttpResponse> response = Patterns.ask(storageActor)
+                                    }
                                 }))
-                )
+                )t
         );
     }
 }
