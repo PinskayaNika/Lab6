@@ -22,6 +22,7 @@ import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.KeeperException;
 import org.apache.zookeeper.ZooDefs;
 import org.apache.zookeeper.ZooKeeper;
+import org.omg.CORBA.TIMEOUT;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -105,7 +106,8 @@ public class AkkaHttpServer {
                                 parameter(COUNT, count -> {
                                     int parsedCount = Integer.parseInt(count);
                                     if (parsedCount != 0) {
-                                        CompletionStage<HttpResponse> response = Patterns.ask(storageActor, new get)
+                                        CompletionStage<HttpResponse> response = Patterns.ask(storageActor, new getRandomServerPort.(Integer.toString(port)), java.time.Duration.ofMillis(TIMEOUT))
+                                                
                                     }
                                 }))
                 )t
