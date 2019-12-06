@@ -113,7 +113,7 @@ public class AkkaHttpServer {
                                         return completeWithFuture(response);
                                     }
                                     try {
-                                        return 
+                                        return
                                     }
                                 }))
                 )t
