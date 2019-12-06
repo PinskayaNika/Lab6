@@ -186,6 +186,7 @@
   <component name="RunManager" selected="Application.Unnamed">
     <configuration name="Unnamed" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="com.examples.akkahttpserver.AkkaHttpServer" />
+      <module name="lab6" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -252,8 +253,8 @@
       <listeners />
     </configuration>
     <list>
-      <item itemvalue="Maven.Unnamed" />
       <item itemvalue="Application.Unnamed" />
+      <item itemvalue="Maven.Unnamed" />
     </list>
   </component>
   <component name="SvnConfiguration">
