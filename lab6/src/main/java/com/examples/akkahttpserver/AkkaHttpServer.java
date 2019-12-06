@@ -72,48 +72,48 @@ public class AkkaHttpServer extends AllDirectives {
         zooKeeper.create("/servers/" + Integer.toString(port), Integer.toString(port).getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL);
 
         zooKeeper.getChildren("/servers", a -> {
-                    // tut mi poluchaem dannie o tekuwix serverax
-                    List<String> servers = new ArrayList<>();
-                    try {
-                        servers = zooKeeper.getChildren("/servers", b -> {
-                        });
-                    } catch (KeeperException e) {
-                        e.printStackTrace();
+            // tut mi poluchaem dannie o tekuwix serverax
+            List<String> servers = new ArrayList<>();
+            try {
+                servers = zooKeeper.getChildren("/servers", b -> {});
+            } catch (KeeperException e) {
+                e.printStackTrace();
 
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
 
-                    for (String s : servers) {
-                        byte[] data = new byte[0];
-                        try {
-                            data = zooKeeper.getData("/servers" + s, c -> {
-                            }, null);
-                        } catch (KeeperException | InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        System.out.print(data.toString());
-
-                        http = Http.get(system);
-
-                        final ActorMaterializer materializer = ActorMaterializer.create(system);
-
-                        AkkaHttpServer app = new AkkaHttpServer();
-
-                        final Flow<HttpRequest, HttpResponse, NotUsed> routeFlow = app.route().flow(system, materializer);
-                        final CompletionStage<ServerBinding> binding = http.bindAndHandle(
-                                routeFlow,
-                       "/servers" + s, c -> {}, null         ConnectHttp.toHost(LOCALHOST, port),
-                                materializer
-                        );
-
-                        System.out.println(SERVER_INFO + Integer.toString(port));
-                        System.in.read();
-                        binding
-                                .thenCompose(ServerBinding::unbind)
-                                .thenAccept(unbound -> system.terminate());
-                    }
+            for(String s: servers){
+                byte[] data = new byte[0];
+                try {
+                    data = zooKeeper.getData("/servers" + s, c -> {}, null);
+                } catch (KeeperException | InterruptedException e) {
+                    e.printStackTrace();
                 }
+                System.out.print(data.toString());
+                //System.out.print(zooKeeper.getData("/servers" + s, c -> {}, null).toString());
+            }
+        });
+
+        http = Http.get(system);
+
+        final ActorMaterializer materializer = ActorMaterializer.create(system);
+
+        AkkaHttpServer app = new AkkaHttpServer();
+
+        final Flow<HttpRequest, HttpResponse, NotUsed> routeFlow = app.route().flow(system, materializer);
+        final CompletionStage<ServerBinding> binding = http.bindAndHandle(
+                routeFlow,
+                ConnectHttp.toHost(LOCALHOST, port),
+                materializer
+        );
+
+        System.out.println(SERVER_INFO + Integer.toString(port));
+        System.in.read();
+        binding
+                .thenCompose(ServerBinding::unbind)
+                .thenAccept(unbound -> system.terminate());
+    }
 
     CompletionStage<HttpResponse> fetch(String url) {
         try {
