@@ -142,7 +142,7 @@ public class AkkaHttpServer extends AllDirectives {
                                 parameter(COUNT, count -> {
                                     int parsedCount = Integer.parseInt(count);
                                     if (parsedCount != 0) {
-                                        CompletionStage<HttpResponse> response = Patterns.ask(storageActor, new get.(Integer.toString(port)), java.time.Duration.ofMillis(TIMEOUT))
+                                        CompletionStage<HttpResponse> response = Patterns.ask(storageActor, new GetRandomServerPort.(Integer.toString(port)), java.time.Duration.ofMillis(TIMEOUT))
                                               .thenCompose(req ->
                                               fetchToServer((int) req, url,parsedCount)
                                               );
