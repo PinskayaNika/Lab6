@@ -68,7 +68,7 @@ public class AkkaHttpServer extends AllDirectives {
                 );
 // zapuskaew odin raz potom kommentiw
         //постоянный
-        zooKeeper.create("/servers", "server".getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
+        zooKeeper.create("/servers", Integer.toString(port).getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
         //временный , будет удаляться после завершения программы, пересоздается при перезапуске
         zooKeeper.create("/servers/" + Integer.toString(port), Integer.toString(port).getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL);
 
