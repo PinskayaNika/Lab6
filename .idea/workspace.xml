@@ -24,8 +24,8 @@
       <file leaf-file-name="AkkaHttpServer.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lab6/src/main/java/com/examples/akkahttpserver/AkkaHttpServer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="548">
-              <caret line="161" lean-forward="true" selection-start-line="161" selection-end-line="161" />
+            <state relative-caret-position="149">
+              <caret line="137" column="27" lean-forward="true" selection-start-line="137" selection-start-column="27" selection-end-line="137" selection-end-column="27" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -100,7 +100,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="1">
+  <component name="ProjectFrameBounds">
     <option name="y" value="25" />
     <option name="width" value="1061" />
     <option name="height" value="1055" />
@@ -269,7 +269,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="25" width="1061" height="1055" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -457,8 +456,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lab6/src/main/java/com/examples/akkahttpserver/AkkaHttpServer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="548">
-          <caret line="161" lean-forward="true" selection-start-line="161" selection-end-line="161" />
+        <state relative-caret-position="149">
+          <caret line="137" column="27" lean-forward="true" selection-start-line="137" selection-start-column="27" selection-end-line="137" selection-end-column="27" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
