@@ -38,15 +38,16 @@ import java.util.concurrent.ExecutionException;
 
 public class AkkaHttpServer extends AllDirectives {
     private static ZooKeeper zooKeeper;
-    private static int port;
+    private static int port; //номер порта
     private static ActorRef storageActor;
+    private static Http http;
     private static final String ROUTES = "routes";
     private static final String LOCALHOST = "localhost";
     private static final String SERVER_INFO = "Server online at http://localhost:";
     private static final String URL = "url";
     private static final String COUNT = "count";
     private static final String URL_ERROR_MESSAGE = "Unable to connect to url";
-    private static final int NOT_FOUND = 4000;
+    private static final String NOT_FOUND = "404";
 
 
     public static void main (String[] args) throws IOException, KeeperException, InterruptedException {
@@ -68,7 +69,7 @@ public class AkkaHttpServer extends AllDirectives {
         //постоянный
         zooKeeper.create("/servers", "server".getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
         //временный , будет удаляться после завершения программы, пересоздается при перезапуске
-        zooKeeper.create("/servers/" + PORT_NUMBER, PORT_NUMBER.getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL);
+        zooKeeper.create("/servers/" + Integer.toString(port), Integer.toString(port).getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL);
 
         zooKeeper.getChildren("/servers", a -> {
             // tut mi poluchaem dannie o tekuwix serverax
@@ -76,6 +77,7 @@ public class AkkaHttpServer extends AllDirectives {
             try {
                 servers = zooKeeper.getChildren("/servers", b -> {});
             } catch (KeeperException e) {
+
 
 
             } catch (InterruptedException e) {
@@ -87,7 +89,7 @@ public class AkkaHttpServer extends AllDirectives {
             }
         });
 
-        final Http http = Http.get(system);
+        http = Http.get(system);
 
         final ActorMaterializer materializer = ActorMaterializer.create(system);
 
@@ -112,8 +114,7 @@ public class AkkaHttpServer extends AllDirectives {
             return http.singleRequest(
                     HttpRequest.create(url));
         } catch (Exception e) {
-                return CompletableFuture.completedFuture(HttpResponse.create().withEntity(NOT_FOUND));
-            }
+            return CompletableFuture.completedFuture(HttpResponse.create().withEntity(NOT_FOUND));
         }
     }
 
