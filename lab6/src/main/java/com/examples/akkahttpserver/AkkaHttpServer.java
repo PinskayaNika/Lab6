@@ -87,7 +87,7 @@ public class AkkaHttpServer extends AllDirectives {
             for(String s: servers){
                 byte[] data = new byte[0];
                 try {
-                    data = zooKeeper.getData("/servers" + s, c -> {}, null);
+                    data = zooKeeper.getData("/servers/" + s, c -> {}, null);
                 } catch (KeeperException | InterruptedException e) {
                     e.printStackTrace();
                 }
