@@ -115,7 +115,7 @@ public class AkkaHttpServer extends AllDirectives {
                 .thenCompose(ServerBinding::unbind)
                 .thenAccept(unbound -> system.terminate());
     }
-
+//пример вызова http клиента
     private CompletionStage<HttpResponse> fetch(String url) {
         try {
             return http.singleRequest(
