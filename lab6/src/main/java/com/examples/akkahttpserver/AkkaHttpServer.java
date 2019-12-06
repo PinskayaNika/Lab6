@@ -63,12 +63,12 @@ public class AkkaHttpServer extends AllDirectives {
 // подключение к зукиперу внутри программы
         zooKeeper = new ZooKeeper(
                 "127.0.0.1:2181",
-                5000,
+                2000,
                 a -> {}
                 );
 // zapuskaew odin raz potom kommentiw
         //постоянный
-        zooKeeper.create("/servers/", "server".getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
+        zooKeeper.create("/servers", "server".getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
         //временный , будет удаляться после завершения программы, пересоздается при перезапуске
         zooKeeper.create("/servers/" + Integer.toString(port), Integer.toString(port).getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL);
 
