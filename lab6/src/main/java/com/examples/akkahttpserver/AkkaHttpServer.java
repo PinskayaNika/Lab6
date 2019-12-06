@@ -113,10 +113,10 @@ public class AkkaHttpServer {
                                         return completeWithFuture(response);
                                     }
                                     try {
-                                        return
+                                        return complete(fetch(url).toCompletableFuture().get())
                                     }
                                 }))
-                )t
+                )
         );
     }
 }
