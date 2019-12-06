@@ -115,7 +115,7 @@ public class AkkaHttpServer extends AllDirectives {
                 .thenAccept(unbound -> system.terminate());
     }
 
-    CompletionStage<HttpResponse> fetch(String url) {
+    private CompletionStage<HttpResponse> fetch(String url) {
         try {
             return http.singleRequest(
                     HttpRequest.create(url));
@@ -124,7 +124,7 @@ public class AkkaHttpServer extends AllDirectives {
         }
     }
 
-    CompletionStage<HttpResponse> fetchToServer (int port, String url, int parsedCount) {
+    private CompletionStage<HttpResponse> fetchToServer (int port, String url, int parsedCount) {
         try {
             return http.singleRequest(
                     HttpRequest.create("http://localhost:" + Integer.toString(port) + "/?url=" + url + "&count=" +
@@ -141,7 +141,7 @@ public class AkkaHttpServer extends AllDirectives {
                                 parameter(COUNT, count -> {
                                     int parsedCount = Integer.parseInt(count);
                                     if (parsedCount != 0) {
-                                        CompletionStage<HttpResponse> response = Patterns.ask(storageActor, new getRandomServerPort.(Integer.toString(port)), java.time.Duration.ofMillis(TIMEOUT))
+                                        CompletionStage<HttpResponse> response = Patterns.ask(storageActor, new GetRandomServerPort.(Integer.toString(port)), java.time.Duration.ofMillis(TIMEOUT))
                                               .thenCompose(req ->
                                               fetchToServer((int) req, url,parsedCount)
                                               );
