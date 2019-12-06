@@ -40,7 +40,7 @@ public class AkkaHttpServer {
     private static final String SERVER_INFO = "Server online at http://localhost:";
     private static final String URL = "url";
     private static final String COUNT = "count";
-    private static final String URL_ERROR_MESSAGE = "";
+    private static final String URL_ERROR_MESSAGE = "Unable to connect to url";
 
 
     public static void main (String[] args) throws IOException, KeeperException, InterruptedException {
