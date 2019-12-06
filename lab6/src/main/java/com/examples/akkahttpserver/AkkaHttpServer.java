@@ -70,7 +70,7 @@ public class AkkaHttpServer extends AllDirectives {
         //постоянный
         //zooKeeper.create("/servers", Integer.toString(port).getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
         //временный , будет удаляться после завершения программы, пересоздается при перезапуске
-        zooKeeper.create("servers/" + Integer.toString(port), Integer.toString(port).getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL);
+        zooKeeper.create("/servers/" + Integer.toString(port), Integer.toString(port).getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL);
 
         zooKeeper.getChildren("/servers", a -> {
             // tut mi poluchaem dannie o tekuwix serverax
