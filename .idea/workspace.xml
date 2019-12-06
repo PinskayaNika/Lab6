@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="05d597a5-3372-4f8d-8006-1a4510b97d19" name="Default" comment="" />
+    <list default="true" id="05d597a5-3372-4f8d-8006-1a4510b97d19" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/lab6/src/main/java/com/examples/akkahttpserver/AkkaHttpServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/lab6/src/main/java/com/examples/akkahttpserver/AkkaHttpServer.java" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/lab6/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -24,8 +26,8 @@
       <file leaf-file-name="AkkaHttpServer.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lab6/src/main/java/com/examples/akkahttpserver/AkkaHttpServer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-551">
-              <caret line="65" column="17" selection-start-line="65" selection-start-column="17" selection-end-line="65" selection-end-column="17" />
+            <state relative-caret-position="190">
+              <caret line="65" column="16" selection-start-line="65" selection-start-column="16" selection-end-line="65" selection-end-column="16" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -268,7 +270,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="25" width="1015" height="1055" extended-state="0" />
+    <frame x="0" y="25" width="1061" height="1055" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
@@ -290,7 +292,7 @@
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info id="UI Designer" order="2" />
       <window_info anchor="right" id="Theme Preview" order="3" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39979014" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -457,8 +459,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lab6/src/main/java/com/examples/akkahttpserver/AkkaHttpServer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-551">
-          <caret line="65" column="17" selection-start-line="65" selection-start-column="17" selection-end-line="65" selection-end-column="17" />
+        <state relative-caret-position="190">
+          <caret line="65" column="16" selection-start-line="65" selection-start-column="16" selection-end-line="65" selection-end-column="16" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
