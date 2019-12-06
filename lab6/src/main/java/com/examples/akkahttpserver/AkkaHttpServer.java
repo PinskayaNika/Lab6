@@ -13,6 +13,7 @@ import akka.http.javadsl.Http;
 import akka.http.javadsl.ServerBinding;
 import akka.http.javadsl.model.HttpRequest;
 import akka.http.javadsl.model.HttpResponse;
+import akka.http.javadsl.server.AllDirectives;
 import akka.http.javadsl.server.Route;
 import akka.pattern.Patterns;
 import akka.stream.ActorMaterializer;
@@ -30,10 +31,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.CompletionStage;
+import java.util.concurrent.ExecutionException;
 
 //import static java.util.stream.Stream.concat;
 
-public class AkkaHttpServer {
+public class AkkaHttpServer extends AllDirectives {
     private static ZooKeeper zooKeeper;
     private static int port;
     private static ActorRef storageActor;
@@ -118,7 +120,7 @@ public class AkkaHttpServer {
                                     }
                                     try {
                                         return complete(fetch(url).toCompletableFuture().get());
-                                    } catch (InterruptedException | ExportException e) {
+                                    } catch (InterruptedException | ExecutionException e) {
                                         e.printStackTrace();
                                         return complete(URL_ERROR_MESSAGE);
                                     }
