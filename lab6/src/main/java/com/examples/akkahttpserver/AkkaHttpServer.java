@@ -105,6 +105,8 @@ public class AkkaHttpServer extends AllDirectives {
                 .thenAccept(unbound -> system.terminate());
     }
 
+    private  fetch
+
     private Route route() {
         return concat(
                 get(
