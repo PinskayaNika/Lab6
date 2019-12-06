@@ -48,6 +48,7 @@ public class AkkaHttpServer extends AllDirectives {
     private static final String COUNT = "count";
     private static final String URL_ERROR_MESSAGE = "Unable to connect to url";
     private static final String NOT_FOUND = "404";
+    private static final int TIMEOUT = 5000;
 
 
     public static void main (String[] args) throws IOException, KeeperException, InterruptedException {
@@ -141,7 +142,7 @@ public class AkkaHttpServer extends AllDirectives {
                                 parameter(COUNT, count -> {
                                     int parsedCount = Integer.parseInt(count);
                                     if (parsedCount != 0) {
-                                        CompletionStage<HttpResponse> response = Patterns.ask(storageActor, new GetRandomServerPort.(Integer.toString(port)), java.time.Duration.ofMillis(TIMEOUT))
+                                        CompletionStage<HttpResponse> response = Patterns.ask(storageActor, new get.(Integer.toString(port)), java.time.Duration.ofMillis(TIMEOUT))
                                               .thenCompose(req ->
                                               fetchToServer((int) req, url,parsedCount)
                                               );
