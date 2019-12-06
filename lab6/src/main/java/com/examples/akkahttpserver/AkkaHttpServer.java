@@ -79,7 +79,6 @@ public class AkkaHttpServer extends AllDirectives {
             } catch (KeeperException e) {
 
 
-
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
