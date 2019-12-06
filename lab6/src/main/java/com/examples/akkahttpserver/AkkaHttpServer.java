@@ -63,7 +63,7 @@ public class AkkaHttpServer extends AllDirectives {
 // подключение к зукиперу внутри программы
         zooKeeper = new ZooKeeper(
                 "127.0.0.1:2181",
-                2000,
+                5000,
                 a -> {}
                 );
 // zapuskaew odin raz potom kommentiw
