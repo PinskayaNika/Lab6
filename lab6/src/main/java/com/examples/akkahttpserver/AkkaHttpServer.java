@@ -25,6 +25,7 @@ import org.apache.zookeeper.ZooKeeper;
 import org.omg.CORBA.TIMEOUT;
 
 import java.io.IOException;
+import java.rmi.server.ExportException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -39,6 +40,7 @@ public class AkkaHttpServer {
     private static final String SERVER_INFO = "Server online at http://localhost:";
     private static final String URL = "url";
     private static final String COUNT = "count";
+    private static final String URL_ERROR_MESSAGE = "";
 
 
     public static void main (String[] args) throws IOException, KeeperException, InterruptedException {
@@ -113,7 +115,10 @@ public class AkkaHttpServer {
                                         return completeWithFuture(response);
                                     }
                                     try {
-                                        return complete(fetch(url).toCompletableFuture().get())
+                                        return complete(fetch(url).toCompletableFuture().get());
+                                    } catch (InterruptedException | ExportException e) {
+                                        e.printStackTrace();
+                                        return complete(URL_ERROR_MESSAGE);
                                     }
                                 }))
                 )
