@@ -30,6 +30,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 import java.util.concurrent.ExecutionException;
 
@@ -45,6 +46,7 @@ public class AkkaHttpServer extends AllDirectives {
     private static final String URL = "url";
     private static final String COUNT = "count";
     private static final String URL_ERROR_MESSAGE = "Unable to connect to url";
+    private static final int NOT_FOUND = 4000;
 
 
     public static void main (String[] args) throws IOException, KeeperException, InterruptedException {
@@ -105,7 +107,15 @@ public class AkkaHttpServer extends AllDirectives {
                 .thenAccept(unbound -> system.terminate());
     }
 
-    private  fetch
+    CompletionStage<HttpResponse> fetch(String url) {
+        try {
+            return http.singleRequest(
+                    HttpRequest.create(url));
+        } catch (Exception e) {
+                return CompletableFuture.completedFuture(HttpResponse.create().withEntity(NOT_FOUND));
+            }
+        }
+    }
 
     private Route route() {
         return concat(
