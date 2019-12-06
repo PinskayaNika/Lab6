@@ -77,7 +77,7 @@ public class AkkaHttpServer extends AllDirectives {
             try {
                 servers = zooKeeper.getChildren("/servers", b -> {});
             } catch (KeeperException e) {
-
+                e.printStackTrace();
 
             } catch (InterruptedException e) {
                 e.printStackTrace();
