@@ -99,6 +99,20 @@ public class AkkaHttpServer extends AllDirectives {
             }
         });
 
+        /*//---------------------------
+        //отправляем список серверов на getActor
+
+        List<String> servers = new ArrayList<>();
+        try {
+            servers = zooKeeper.getChildren("/servers/", this);        //отправляем список серверов на getActor
+        }catch (KeeperException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        List<String> serverData = new ArrayList<>();
+        getServersInfo(servers, serverData);
+        // --------------------
+        */
+
         http = Http.get(system);
 
         final ActorMaterializer materializer = ActorMaterializer.create(system);
