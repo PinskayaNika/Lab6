@@ -55,12 +55,13 @@ import com.examples.akkahttpserver.GetRandomServerPort;
 import com.examples.akkahttpserver.ServerMessage;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 
 public class StoreActor extends AbstractActor {
-    List<String> serversPortList;
+    List<String> serversPortList = new ArrayList<>();
 
     @Override
     public Receive createReceive() {
