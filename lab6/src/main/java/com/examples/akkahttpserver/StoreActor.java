@@ -20,6 +20,11 @@ public class StoreActor extends AbstractActor {
 
                 //принимает список серверов (который отправит zookeeper watcher)
                 .match(ServerMessage.class, msg -> {
+
+                            for(String s : msg.getServerPort()){
+                                System.out.println(s);
+                            }
+
                             serversPortList = msg.getServerPort();
                         }
                 )
