@@ -75,6 +75,7 @@ public class StoreActor extends AbstractActor {
                         msg -> {
                             Random rand = new Random();
                             int len = serversPortList.size();
+                            System.out.println(len);
                             int rand_idx = rand.nextInt(len);
                             while (serversPortList.get(rand_idx).equals(msg.getRandomPort())) {
                                 rand_idx = rand.nextInt(len);
