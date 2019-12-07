@@ -66,6 +66,9 @@ public class AkkaHttpServer extends AllDirectives {
                 TIMEOUT,//2000,
                 a -> {}
                 );
+
+
+
 // zapuskaew odin raz potom kommentiw
         //постоянный
         //zooKeeper.create("/servers", Integer.toString(port).getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
@@ -115,6 +118,10 @@ public class AkkaHttpServer extends AllDirectives {
                 .thenCompose(ServerBinding::unbind)
                 .thenAccept(unbound -> system.terminate());
     }
+
+
+    //передаем storeActore список серверов
+
 //пример вызова http клиента
     private CompletionStage<HttpResponse> fetch(String url) {
         try {
