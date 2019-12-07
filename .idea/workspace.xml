@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="05d597a5-3372-4f8d-8006-1a4510b97d19" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/lab6/src/main/java/com/examples/akkahttpserver/AkkaHttpServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/lab6/src/main/java/com/examples/akkahttpserver/AkkaHttpServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lab6/src/main/java/com/examples/akkahttpserver/StoreActor.java" beforeDir="false" afterPath="$PROJECT_DIR$/lab6/src/main/java/com/examples/akkahttpserver/StoreActor.java" afterDir="false" />
-    </list>
+    <list default="true" id="05d597a5-3372-4f8d-8006-1a4510b97d19" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/lab6/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -90,6 +87,7 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>StoreActor</find>
+      <find>store</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
