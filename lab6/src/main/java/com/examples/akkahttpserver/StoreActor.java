@@ -9,13 +9,10 @@ import akka.actor.AbstractActor;
 import akka.actor.ActorRef;
 import akka.japi.pf.ReceiveBuilder;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 public class StoreActor extends AbstractActor {
-    List<String> serversPortList;
+    List<String> serversPortList = new ArrayList<>();
 
     @Override
     public Receive createReceive() {
