@@ -10,7 +10,10 @@ import akka.actor.ActorRef;
 import akka.japi.pf.ReceiveBuilder;
 import scala.util.Random;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+
+//import java.util.*;
 
 public class StoreActor extends AbstractActor {
     List<String> serversPortList = new ArrayList<>();
