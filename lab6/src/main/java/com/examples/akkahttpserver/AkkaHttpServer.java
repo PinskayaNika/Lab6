@@ -82,7 +82,7 @@ public class AkkaHttpServer extends AllDirectives {
     }
 
 
-    public static class UpdWatcher implements Watcher {
+    /*public static class UpdWatcher implements Watcher {
 
         @Override
         public void process (WatchedEvent event) {
@@ -97,6 +97,22 @@ public class AkkaHttpServer extends AllDirectives {
                 e.printStackTrace();
             }
 
+            List<String> serversData = new ArrayList<>();
+            getServersInfo(servers, serversData);
+            storageActor.tell(new ServerMessage(serversData), ActorRef.noSender());
+        }
+    }*/
+
+public static class UpdWatcher implements Watcher {
+
+        @Override
+        public void process(WatchedEvent event) {
+            List<String> servers = new ArrayList<>();
+            try {
+                servers = zooKeeper.getChildren("/servers", this);
+            } catch (KeeperException | InterruptedException e) {
+                e.printStackTrace();
+            }
             List<String> serversData = new ArrayList<>();
             getServersInfo(servers, serversData);
             storageActor.tell(new ServerMessage(serversData), ActorRef.noSender());
