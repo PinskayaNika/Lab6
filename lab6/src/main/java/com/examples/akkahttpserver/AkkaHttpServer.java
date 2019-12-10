@@ -153,7 +153,7 @@ public static class UpdWatcher implements Watcher {
         // --------------------
         */
     }
-
+/*
     private static void getServersInfo(List<String> servers, List<String> serverData) {
         for(String s: servers){
             byte[] data = new byte[0];
@@ -166,8 +166,18 @@ public static class UpdWatcher implements Watcher {
             //System.out.print(data.toString());
             //System.out.print(zooKeeper.getData("/servers" + s, c -> {}, null).toString());
         }
+    }*/
+    private static void getServersInfo(List<String> servers, List<String> serversData) {
+        for (String s : servers) {
+            byte[] data = new byte[0];
+            try {
+                data = zooKeeper.getData("/servers/" + s, false, null);
+            } catch (KeeperException | InterruptedException e) {
+                e.printStackTrace();
+            }
+            serversData.add(new String(data));
+        }
     }
-
     //передаем storeActore список серверов
 
 
