@@ -49,7 +49,7 @@ public class AkkaHttpServer extends AllDirectives {
     private static final int TIMEOUT = 5000;
 
 
-    public static void main (String[] args) throws Exception {//IOException, KeeperException, InterruptedException {
+    /*public static void main (String[] args) throws Exception {//IOException, KeeperException, InterruptedException {
 
         Scanner in = new Scanner(System.in);
         port = in.nextInt();
@@ -79,6 +79,34 @@ public class AkkaHttpServer extends AllDirectives {
         binding
                 .thenCompose(ServerBinding::unbind)
                 .thenAccept(unbound -> system.terminate());
+    }
+*/
+    public static void main(String[] args) throws Exception {
+
+        Scanner in = new Scanner(System.in);
+        port = in.nextInt();
+
+        ActorSystem system = ActorSystem.create(ROUTES);
+        storageActor = system.actorOf(Props.create(StoreActor.class));
+        createZoo();
+        http = Http.get(system);
+
+        final ActorMaterializer materializer = ActorMaterializer.create(system);
+        AkkaHttpServer app = new AkkaHttpServer();
+        final Flow<HttpRequest, HttpResponse, NotUsed> routeFlow = app.route().flow(system, materializer);
+        final CompletionStage<ServerBinding> binding = http.bindAndHandle(
+                routeFlow,
+                ConnectHttp.toHost(LOCALHOST, port),
+                materializer
+        );
+
+        System.out.println(SERVER_INFO + Integer.toString(port));
+        System.in.read();
+
+        binding
+                .thenCompose(ServerBinding::unbind)
+                .thenAccept(unbound -> system.terminate());
+
     }
 
 
