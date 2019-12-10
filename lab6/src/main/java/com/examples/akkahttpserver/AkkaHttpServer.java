@@ -177,7 +177,7 @@ public class AkkaHttpServer extends AllDirectives {
 
 
 
-    private Route route() {
+    /*private Route route() {
         return concat(
                 get(
                         () -> parameter(URL, url ->
@@ -199,5 +199,32 @@ public class AkkaHttpServer extends AllDirectives {
                                 }))
                 )
         );
+    }*/
+    private Route route() {
+        return concat(
+                get(
+                        () -> parameter(URL, url ->
+                                parameter(COUNT, count -> {
+                                            int parsedCount = Integer.parseInt(count);
+                                            if (parsedCount != 0) {
+                                                CompletionStage<HttpResponse> response = Patterns.ask(storageActor, new GetRandomServerPort(Integer.toString(port)), java.time.Duration.ofMillis(TIMEOUT))
+                                                        .thenCompose(req ->
+                                                                fetchToServer((int) req, url, parsedCount)
+                                                        );
+                                                return completeWithFuture(response);
+                                            }
+                                            try {
+                                                return complete(fetch(url).toCompletableFuture().get());
+                                            } catch (InterruptedException | ExecutionException e) {
+                                                e.printStackTrace();
+                                                return complete(URL_ERROR_MESSAGE);
+                                            }
+
+                                        }
+                                )
+                        )
+                )
+        );
+
     }
 }
