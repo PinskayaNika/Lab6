@@ -40,7 +40,8 @@ public class AkkaHttpServer extends AllDirectives {
     private static Http http;
     private static final String ROUTES = "routes";
     private static final String LOCALHOST = "localhost";
-    private static final String SERVER_INFO = "Server online at http://localhost:";
+    //private static final String SERVER_INFO = "Server online at http://localhost:";
+    private static final String SERVER_INFO = "Server online on localhost:";
     private static final String URL = "url";
     private static final String COUNT = "count";
     private static final String URL_ERROR_MESSAGE = "Unable to connect to url";
