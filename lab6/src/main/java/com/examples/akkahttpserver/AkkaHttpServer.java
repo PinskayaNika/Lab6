@@ -284,7 +284,7 @@ public static class UpdWatcher implements Watcher {
                                                         .thenCompose(req ->
                                                                 fetchToServer((int) req, url, parsedCount)
                                                         );
-                                                return completeWithFuture(response);
+                                           bm     return completeWithFuture(response);
                                             }
                                             try {
                                                 return complete(fetch(url).toCompletableFuture().get());
