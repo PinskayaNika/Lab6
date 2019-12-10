@@ -155,7 +155,7 @@ public class AkkaHttpServer extends AllDirectives {
     //передаем storeActore список серверов
 
 
-     CompletionStage<HttpResponse> fetchToServer (int port, String url, int parsedCount) {
+    /* CompletionStage<HttpResponse> fetchToServer (int port, String url, int parsedCount) {
         try {
             return http.singleRequest(
                     HttpRequest.create("http://localhost:" + Integer.toString(port) + "/?url=" + url + "&count=" +
@@ -163,7 +163,7 @@ public class AkkaHttpServer extends AllDirectives {
         } catch (Exception e) {
             return CompletableFuture.completedFuture(HttpResponse.create().withEntity(NOT_FOUND));
         }
-    }
+    }/
 
 
 //пример вызова http клиента
@@ -176,7 +176,25 @@ public class AkkaHttpServer extends AllDirectives {
         }
     }
 
+*/
+    CompletionStage<HttpResponse> fetchToServer(int port, String url, int parsedCount) {
+        try {
+            return http.singleRequest(
+                    HttpRequest.create("http://localhost:" + Integer.toString(port) + "/?url=" + url + "&count=" +
+                            Integer.toString(parsedCount - 1)));
+        } catch (Exception e) {
+            return CompletableFuture.completedFuture(HttpResponse.create().withEntity(NOT_FOUND));
+        }
+    }
 
+    CompletionStage<HttpResponse> fetch(String url) {
+        try {
+            return http.singleRequest(
+                    HttpRequest.create(url));
+        } catch (Exception e) {
+            return CompletableFuture.completedFuture(HttpResponse.create().withEntity(NOT_FOUND));
+        }
+    }
 
     /*private Route route() {
         return concat(
