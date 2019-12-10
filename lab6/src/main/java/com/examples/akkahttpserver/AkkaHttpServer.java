@@ -178,6 +178,9 @@ public class AkkaHttpServer extends AllDirectives {
         }
     }
 
+    private static void createZoo() throws IOException, KeeperException, InterruptedException
+
+
     private Route route() {
         return concat(
                 get(
