@@ -61,7 +61,7 @@ import java.util.Random;
 
 
 public class StoreActor extends AbstractActor {
-    List<String> serversPortList = new ArrayList<>();
+    List<String> serversPortList;// = new ArrayList<>();
 
     @Override
     public Receive createReceive() {
