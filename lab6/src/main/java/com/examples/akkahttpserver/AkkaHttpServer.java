@@ -106,7 +106,7 @@ public class AkkaHttpServer extends AllDirectives {
     //передаем storeActore список серверов
 
 //пример вызова http клиента
-    private CompletionStage<HttpResponse> fetch(String url) {
+    CompletionStage<HttpResponse> fetch(String url) {
         try {
             return http.singleRequest(
                     HttpRequest.create(url));
@@ -115,7 +115,7 @@ public class AkkaHttpServer extends AllDirectives {
         }
     }
 
-    private CompletionStage<HttpResponse> fetchToServer (int port, String url, int parsedCount) {
+    CompletionStage<HttpResponse> fetchToServer (int port, String url, int parsedCount) {
         try {
             return http.singleRequest(
                     HttpRequest.create("http://localhost:" + Integer.toString(port) + "/?url=" + url + "&count=" +
