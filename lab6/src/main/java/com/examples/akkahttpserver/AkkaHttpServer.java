@@ -60,34 +60,7 @@ public class AkkaHttpServer extends AllDirectives {
 
         storageActor = system.actorOf(Props.create(StoreActor.class));
 
-// подключение к зукиперу внутри программы
-        zooKeeper = new ZooKeeper(
-                "127.0.0.1:2181",
-                TIMEOUT,//2000,
-                a -> {
-                    // tut mi poluchaem dannie o tekuwix serverax
-                    List<String> servers = new ArrayList<>();
-                    try {
-                        servers = zooKeeper.getChildren("/servers", b -> {});
-                    } catch (KeeperException e) {
-                        e.printStackTrace();
-
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-
-                    for(String s: servers){
-                        byte[] data = new byte[0];
-                        try {
-                            data = zooKeeper.getData("/servers/" + s, c -> {}, null);
-                        } catch (KeeperException | InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        System.out.print(data.toString());
-                        //System.out.print(zooKeeper.getData("/servers" + s, c -> {}, null).toString());
-                    }
-                }
-                );
+        createZoo();
 
 
 
@@ -178,7 +151,36 @@ public class AkkaHttpServer extends AllDirectives {
         }
     }
 
-    private static void createZoo() throws IOException, KeeperException, InterruptedException
+    private static void createZoo() throws IOException, KeeperException, InterruptedException {
+        // подключение к зукиперу внутри программы
+        zooKeeper = new ZooKeeper(
+                "127.0.0.1:2181",
+                TIMEOUT,//2000,
+                a -> {
+                    // tut mi poluchaem dannie o tekuwix serverax
+                    List<String> servers = new ArrayList<>();
+                    try {
+                        servers = zooKeeper.getChildren("/servers", b -> {});
+                    } catch (KeeperException e) {
+                        e.printStackTrace();
+
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                    for(String s: servers){
+                        byte[] data = new byte[0];
+                        try {
+                            data = zooKeeper.getData("/servers/" + s, c -> {}, null);
+                        } catch (KeeperException | InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        System.out.print(data.toString());
+                        //System.out.print(zooKeeper.getData("/servers" + s, c -> {}, null).toString());
+                    }
+                }
+        );
+    }
 
 
     private Route route() {
