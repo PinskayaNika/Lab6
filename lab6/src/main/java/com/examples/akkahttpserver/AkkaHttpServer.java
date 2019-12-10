@@ -163,7 +163,7 @@ public class AkkaHttpServer extends AllDirectives {
         } catch (Exception e) {
             return CompletableFuture.completedFuture(HttpResponse.create().withEntity(NOT_FOUND));
         }
-    }/
+    }
 
 
     //пример вызова http клиента
