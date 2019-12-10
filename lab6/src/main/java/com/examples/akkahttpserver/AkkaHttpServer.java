@@ -115,7 +115,7 @@ public class AkkaHttpServer extends AllDirectives {
         }
     }
 
-    private CompletionStage<HttpResponse> fetchToServer (int port, String url, int parsedCount) {
+    CompletionStage<HttpResponse> fetchToServer (int port, String url, int parsedCount) {
         try {
             return http.singleRequest(
                     HttpRequest.create("http://localhost:" + Integer.toString(port) + "/?url=" + url + "&count=" +
