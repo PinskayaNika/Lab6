@@ -34,21 +34,35 @@ import java.util.concurrent.ExecutionException;
 //import static java.util.stream.Stream.concat;
 
 public class AkkaHttpServer extends AllDirectives {
-    private static ZooKeeper zooKeeper;
-    private static int port; //номер порта
+//    private static ZooKeeper zooKeeper;
+//    private static int port; //номер порта
+//    private static ActorRef storageActor;
+//    private static Http http;
+//    private static final String ROUTES = "routes";
+//    private static final String LOCALHOST = "localhost";
+//    //private static final String SERVER_INFO = "Server online at http://localhost:";
+//    private static final String SERVER_INFO = "Server online on localhost:";
+//    private static final String URL = "url";
+//    private static final String COUNT = "count";
+//    private static final String URL_ERROR_MESSAGE = "Unable to connect to url";
+//    private static final String NOT_FOUND = "404";
+//    private static final String ZOO_KEEPER_HOST = "127.0.0.1:2181";
+//    private static final int TIMEOUT = 5000;
+private static int port;
     private static ActorRef storageActor;
+    private static ZooKeeper zooKeeper;
     private static Http http;
     private static final String ROUTES = "routes";
     private static final String LOCALHOST = "localhost";
-    //private static final String SERVER_INFO = "Server online at http://localhost:";
     private static final String SERVER_INFO = "Server online on localhost:";
     private static final String URL = "url";
     private static final String COUNT = "count";
-    private static final String URL_ERROR_MESSAGE = "Unable to connect to url";
-    private static final String NOT_FOUND = "404";
     private static final String ZOO_KEEPER_HOST = "127.0.0.1:2181";
+    private static final String ZOO_KEEPER_SERVER_DIR = "/servers";
+    private static final String ZOO_KEEPER_CHILD_DIR = "/servers/";
+    private static final String NOT_FOUND = "404";
+    private static final String URL_ERROR_MESSAGE = "Unable to connect to url";
     private static final int TIMEOUT = 5000;
-
 
     /*public static void main (String[] args) throws Exception {//IOException, KeeperException, InterruptedException {
 
