@@ -102,31 +102,6 @@ public class AkkaHttpServer extends AllDirectives {
         }
     }
 
-
-    //передаем storeActore список серверов
-
-//пример вызова http клиента
-    CompletionStage<HttpResponse> fetch(String url) {
-        try {
-            return http.singleRequest(
-                    HttpRequest.create(url));
-        } catch (Exception e) {
-            return CompletableFuture.completedFuture(HttpResponse.create().withEntity(NOT_FOUND));
-        }
-    }
-
-    CompletionStage<HttpResponse> fetchToServer (int port, String url, int parsedCount) {
-        try {
-            return http.singleRequest(
-                    HttpRequest.create("http://localhost:" + Integer.toString(port) + "/?url=" + url + "&count=" +
-                            Integer.toString(parsedCount - 1)));
-        } catch (Exception e) {
-            return CompletableFuture.completedFuture(HttpResponse.create().withEntity(NOT_FOUND));
-        }
-    }
-
-
-
     private static void createZoo() throws IOException, KeeperException, InterruptedException {
         // подключение к зукиперу внутри программы
         zooKeeper = new ZooKeeper(
@@ -175,6 +150,31 @@ public class AkkaHttpServer extends AllDirectives {
             //System.out.print(zooKeeper.getData("/servers" + s, c -> {}, null).toString());
         }
     }
+
+    //передаем storeActore список серверов
+
+
+     CompletionStage<HttpResponse> fetchToServer (int port, String url, int parsedCount) {
+        try {
+            return http.singleRequest(
+                    HttpRequest.create("http://localhost:" + Integer.toString(port) + "/?url=" + url + "&count=" +
+                            Integer.toString(parsedCount - 1)));
+        } catch (Exception e) {
+            return CompletableFuture.completedFuture(HttpResponse.create().withEntity(NOT_FOUND));
+        }
+    }
+
+
+//пример вызова http клиента
+     CompletionStage<HttpResponse> fetch(String url) {
+        try {
+            return http.singleRequest(
+                    HttpRequest.create(url));
+        } catch (Exception e) {
+            return CompletableFuture.completedFuture(HttpResponse.create().withEntity(NOT_FOUND));
+        }
+    }
+
 
 
     private Route route() {
