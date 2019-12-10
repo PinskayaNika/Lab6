@@ -24,7 +24,7 @@
       <file leaf-file-name="AkkaHttpServer.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lab6/src/main/java/com/examples/akkahttpserver/AkkaHttpServer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1102">
+            <state relative-caret-position="-209">
               <caret line="91" column="25" selection-start-line="91" selection-start-column="25" selection-end-line="91" selection-end-column="25" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -276,7 +276,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="25" width="1061" height="1055" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -577,7 +576,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lab6/src/main/java/com/examples/akkahttpserver/AkkaHttpServer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1102">
+        <state relative-caret-position="-209">
           <caret line="91" column="25" selection-start-line="91" selection-start-column="25" selection-end-line="91" selection-end-column="25" />
           <folding>
             <element signature="imports" expanded="true" />
