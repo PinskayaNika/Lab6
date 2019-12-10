@@ -178,7 +178,7 @@ public class AkkaHttpServer extends AllDirectives {
         }
     }
 
-    /*private Route route() {
+    private Route route() {
         return concat(
                 get(
                         () -> parameter(URL, url ->
@@ -200,7 +200,7 @@ public class AkkaHttpServer extends AllDirectives {
                                 }))
                 )
         );
-    }*/
+    }
     private Route route() {
         return concat(
                 get(
