@@ -46,6 +46,7 @@ public class AkkaHttpServer extends AllDirectives {
     private static final String COUNT = "count";
     private static final String URL_ERROR_MESSAGE = "Unable to connect to url";
     private static final String NOT_FOUND = "404";
+    private static final String ZOO_KEEPER_HOST = "127.0.0.1:2181";
     private static final int TIMEOUT = 5000;
 
 
@@ -147,17 +148,13 @@ public static class UpdWatcher implements Watcher {
         }
     }
 
+
     private static void createZoo() throws IOException, KeeperException, InterruptedException {
-        // подключение к зукиперу внутри программы
         zooKeeper = new ZooKeeper(
-                "127.0.0.1:2181",
-                TIMEOUT,//2000,
+                ZOO_KEEPER_HOST,
+                TIMEOUT,
                 new UpdWatcher()
         );
-        // zapuskaew odin raz potom kommentiw
-        //постоянный
-        //zooKeeper.create("/servers", Integer.toString(port).getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
-        //временный , будет удаляться после завершения программы, пересоздается при перезапуске
         zooKeeper.create(
                 "/servers/" + Integer.toString(port),
                 Integer.toString(port).getBytes(),
@@ -165,22 +162,44 @@ public static class UpdWatcher implements Watcher {
                 CreateMode.EPHEMERAL
         );
 
-        zooKeeper.getChildren("/servers", new UpdWatcher());     // tut mi poluchaem dannie o tekuwix serverax
+        zooKeeper.getChildren("/servers", new UpdWatcher());
 
-        /*//---------------------------
-        //отправляем список серверов на getActor
-
-        List<String> servers = new ArrayList<>();
-        try {
-            servers = zooKeeper.getChildren("/servers/", this);        //отправляем список серверов на getActor
-        }catch (KeeperException | InterruptedException e) {
-            e.printStackTrace();
-        }
-        List<String> serverData = new ArrayList<>();
-        getServersInfo(servers, serverData);
-        // --------------------
-        */
     }
+
+//    private static void createZoo() throws IOException, KeeperException, InterruptedException {
+//        // подключение к зукиперу внутри программы
+//        zooKeeper = new ZooKeeper(
+//                "127.0.0.1:2181",
+//                TIMEOUT,//2000,
+//                new UpdWatcher()
+//        );
+//        // zapuskaew odin raz potom kommentiw
+//        //постоянный
+//        //zooKeeper.create("/servers", Integer.toString(port).getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
+//        //временный , будет удаляться после завершения программы, пересоздается при перезапуске
+//        zooKeeper.create(
+//                "/servers/" + Integer.toString(port),
+//                Integer.toString(port).getBytes(),
+//                ZooDefs.Ids.OPEN_ACL_UNSAFE,
+//                CreateMode.EPHEMERAL
+//        );
+//
+//        zooKeeper.getChildren("/servers", new UpdWatcher());     // tut mi poluchaem dannie o tekuwix serverax
+//
+//        /*//---------------------------
+//        //отправляем список серверов на getActor
+//
+//        List<String> servers = new ArrayList<>();
+//        try {
+//            servers = zooKeeper.getChildren("/servers/", this);        //отправляем список серверов на getActor
+//        }catch (KeeperException | InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//        List<String> serverData = new ArrayList<>();
+//        getServersInfo(servers, serverData);
+//        // --------------------
+//        */
+//    }
 /*
     private static void getServersInfo(List<String> servers, List<String> serverData) {
         for(String s: servers){
@@ -284,7 +303,7 @@ public static class UpdWatcher implements Watcher {
                                                         .thenCompose(req ->
                                                                 fetchToServer((int) req, url, parsedCount)
                                                         );
-                                           bm     return completeWithFuture(response);
+                                                return completeWithFuture(response);
                                             }
                                             try {
                                                 return complete(fetch(url).toCompletableFuture().get());
