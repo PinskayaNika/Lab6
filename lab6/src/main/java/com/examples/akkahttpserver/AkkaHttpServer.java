@@ -19,10 +19,7 @@ import akka.pattern.Patterns;
 import akka.stream.ActorMaterializer;
 import akka.stream.javadsl.Flow;
 import javafx.util.Pair;
-import org.apache.zookeeper.CreateMode;
-import org.apache.zookeeper.KeeperException;
-import org.apache.zookeeper.ZooDefs;
-import org.apache.zookeeper.ZooKeeper;
+import org.apache.zookeeper.*;
 //import org.omg.CORBA.TIMEOUT;
 
 import java.io.IOException;
@@ -51,7 +48,7 @@ public class AkkaHttpServer extends AllDirectives {
     private static final int TIMEOUT = 5000;
 
 
-    public static void main (String[] args) throws IOException, KeeperException, InterruptedException {
+    public static void main (String[] args) throws Exception {//IOException, KeeperException, InterruptedException {
 
         Scanner in = new Scanner(System.in);
         port = in.nextInt();
@@ -84,6 +81,28 @@ public class AkkaHttpServer extends AllDirectives {
     }
 
 
+    public static class UpdWatcher implements Watcher {
+
+        @Override
+        public void process (WatchedEvent event) {
+
+            List<String> servers = new ArrayList<>();
+            try {
+                servers = zooKeeper.getChildren("/servers", this);
+            } catch (KeeperException e) {
+                e.printStackTrace();
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            List<String> serversData = new ArrayList<>();
+            getServersInfo(servers, serversData);
+            storageActor.tell(new ServerMessage(serversData), ActorRef.noSender());
+        }
+    }
+
+
     //передаем storeActore список серверов
 
 //пример вызова http клиента
@@ -106,55 +125,27 @@ public class AkkaHttpServer extends AllDirectives {
         }
     }
 
+
+
     private static void createZoo() throws IOException, KeeperException, InterruptedException {
         // подключение к зукиперу внутри программы
         zooKeeper = new ZooKeeper(
                 "127.0.0.1:2181",
                 TIMEOUT,//2000,
-                a -> {
-                    // tut mi poluchaem dannie o tekuwix serverax
-                    List<String> servers = new ArrayList<>();
-                    try {
-                        servers = zooKeeper.getChildren("/servers", b -> {});
-                    } catch (KeeperException e) {
-                        e.printStackTrace();
-
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-
-
-                }
+                new UpdWatcher()
         );
         // zapuskaew odin raz potom kommentiw
         //постоянный
         //zooKeeper.create("/servers", Integer.toString(port).getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
         //временный , будет удаляться после завершения программы, пересоздается при перезапуске
-        zooKeeper.create("/servers/" + Integer.toString(port), Integer.toString(port).getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL);
+        zooKeeper.create(
+                "/servers/" + Integer.toString(port),
+                Integer.toString(port).getBytes(),
+                ZooDefs.Ids.OPEN_ACL_UNSAFE,
+                CreateMode.EPHEMERAL
+        );
 
-        zooKeeper.getChildren("/servers", a -> {
-            // tut mi poluchaem dannie o tekuwix serverax
-            List<String> servers = new ArrayList<>();
-            try {
-                servers = zooKeeper.getChildren("/servers", b -> {});
-            } catch (KeeperException e) {
-                e.printStackTrace();
-
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-            for(String s: servers){
-                byte[] data = new byte[0];
-                try {
-                    data = zooKeeper.getData("/servers/" + s, c -> {}, null);
-                } catch (KeeperException | InterruptedException e) {
-                    e.printStackTrace();
-                }
-                System.out.print(data.toString());
-                //System.out.print(zooKeeper.getData("/servers" + s, c -> {}, null).toString());
-            }
-        });
+        zooKeeper.getChildren("/servers", new UpdWatcher());     // tut mi poluchaem dannie o tekuwix serverax
 
         /*//---------------------------
         //отправляем список серверов на getActor
@@ -175,11 +166,12 @@ public class AkkaHttpServer extends AllDirectives {
         for(String s: servers){
             byte[] data = new byte[0];
             try {
-                data = zooKeeper.getData("/servers/" + s, c -> {}, null);
+                data = zooKeeper.getData("/servers/" + s, false, null);
             } catch (KeeperException | InterruptedException e) {
                 e.printStackTrace();
             }
-            System.out.print(data.toString());
+            serverData.add(new String(data));
+            //System.out.print(data.toString());
             //System.out.print(zooKeeper.getData("/servers" + s, c -> {}, null).toString());
         }
     }
