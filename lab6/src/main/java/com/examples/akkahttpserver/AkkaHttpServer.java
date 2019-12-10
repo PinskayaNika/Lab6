@@ -34,37 +34,22 @@ import java.util.concurrent.ExecutionException;
 //import static java.util.stream.Stream.concat;
 
 public class AkkaHttpServer extends AllDirectives {
-//    private static ZooKeeper zooKeeper;
-//    private static int port; //номер порта
-//    private static ActorRef storageActor;
-//    private static Http http;
-//    private static final String ROUTES = "routes";
-//    private static final String LOCALHOST = "localhost";
-//    //private static final String SERVER_INFO = "Server online at http://localhost:";
-//    private static final String SERVER_INFO = "Server online on localhost:";
-//    private static final String URL = "url";
-//    private static final String COUNT = "count";
-//    private static final String URL_ERROR_MESSAGE = "Unable to connect to url";
-//    private static final String NOT_FOUND = "404";
-//    private static final String ZOO_KEEPER_HOST = "127.0.0.1:2181";
-//    private static final int TIMEOUT = 5000;
-private static int port;
-    private static ActorRef storageActor;
     private static ZooKeeper zooKeeper;
+    private static int port; //номер порта
+    private static ActorRef storageActor;
     private static Http http;
     private static final String ROUTES = "routes";
     private static final String LOCALHOST = "localhost";
+    //private static final String SERVER_INFO = "Server online at http://localhost:";
     private static final String SERVER_INFO = "Server online on localhost:";
     private static final String URL = "url";
     private static final String COUNT = "count";
-    private static final String ZOO_KEEPER_HOST = "127.0.0.1:2181";
-    private static final String ZOO_KEEPER_SERVER_DIR = "/servers";
-    private static final String ZOO_KEEPER_CHILD_DIR = "/servers/";
-    private static final String NOT_FOUND = "404";
     private static final String URL_ERROR_MESSAGE = "Unable to connect to url";
+    private static final String NOT_FOUND = "404";
+    private static final String ZOO_KEEPER_HOST = "127.0.0.1:2181";
     private static final int TIMEOUT = 5000;
 
-    /*public static void main (String[] args) throws Exception {//IOException, KeeperException, InterruptedException {
+    public static void main(String[] args) throws Exception {//IOException, KeeperException, InterruptedException {
 
         Scanner in = new Scanner(System.in);
         port = in.nextInt();
@@ -95,40 +80,11 @@ private static int port;
                 .thenCompose(ServerBinding::unbind)
                 .thenAccept(unbound -> system.terminate());
     }
-*/
-    public static void main(String[] args) throws Exception {
 
-        Scanner in = new Scanner(System.in);
-        port = in.nextInt();
-
-        ActorSystem system = ActorSystem.create(ROUTES);
-        storageActor = system.actorOf(Props.create(StoreActor.class));
-        createZoo();
-        http = Http.get(system);
-
-        final ActorMaterializer materializer = ActorMaterializer.create(system);
-        AkkaHttpServer app = new AkkaHttpServer();
-        final Flow<HttpRequest, HttpResponse, NotUsed> routeFlow = app.route().flow(system, materializer);
-        final CompletionStage<ServerBinding> binding = http.bindAndHandle(
-                routeFlow,
-                ConnectHttp.toHost(LOCALHOST, port),
-                materializer
-        );
-
-        System.out.println(SERVER_INFO + Integer.toString(port));
-        System.in.read();
-
-        binding
-                .thenCompose(ServerBinding::unbind)
-                .thenAccept(unbound -> system.terminate());
-
-    }
-
-
-    /*public static class UpdWatcher implements Watcher {
+    public static class UpdWatcher implements Watcher {
 
         @Override
-        public void process (WatchedEvent event) {
+        public void process(WatchedEvent event) {
 
             List<String> servers = new ArrayList<>();
             try {
@@ -144,31 +100,20 @@ private static int port;
             getServersInfo(servers, serversData);
             storageActor.tell(new ServerMessage(serversData), ActorRef.noSender());
         }
-    }*/
-
-public static class UpdWatcher implements Watcher {
-
-        @Override
-        public void process(WatchedEvent event) {
-            List<String> servers = new ArrayList<>();
-            try {
-                servers = zooKeeper.getChildren("/servers", this);
-            } catch (KeeperException | InterruptedException e) {
-                e.printStackTrace();
-            }
-            List<String> serversData = new ArrayList<>();
-            getServersInfo(servers, serversData);
-            storageActor.tell(new ServerMessage(serversData), ActorRef.noSender());
-        }
     }
 
 
     private static void createZoo() throws IOException, KeeperException, InterruptedException {
+        // подключение к зукиперу внутри программы
         zooKeeper = new ZooKeeper(
-                ZOO_KEEPER_HOST,
-                TIMEOUT,
+                "127.0.0.1:2181",
+                TIMEOUT,//2000,
                 new UpdWatcher()
         );
+        // zapuskaew odin raz potom kommentiw
+        //постоянный
+        //zooKeeper.create("/servers", Integer.toString(port).getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
+        //временный , будет удаляться после завершения программы, пересоздается при перезапуске
         zooKeeper.create(
                 "/servers/" + Integer.toString(port),
                 Integer.toString(port).getBytes(),
@@ -176,47 +121,25 @@ public static class UpdWatcher implements Watcher {
                 CreateMode.EPHEMERAL
         );
 
-        zooKeeper.getChildren("/servers", new UpdWatcher());
+        zooKeeper.getChildren("/servers", new UpdWatcher());     // tut mi poluchaem dannie o tekuwix serverax
 
+        /*//---------------------------
+        //отправляем список серверов на getActor
+
+        List<String> servers = new ArrayList<>();
+        try {
+            servers = zooKeeper.getChildren("/servers/", this);        //отправляем список серверов на getActor
+        }catch (KeeperException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        List<String> serverData = new ArrayList<>();
+        getServersInfo(servers, serverData);
+        // --------------------
+        */
     }
 
-//    private static void createZoo() throws IOException, KeeperException, InterruptedException {
-//        // подключение к зукиперу внутри программы
-//        zooKeeper = new ZooKeeper(
-//                "127.0.0.1:2181",
-//                TIMEOUT,//2000,
-//                new UpdWatcher()
-//        );
-//        // zapuskaew odin raz potom kommentiw
-//        //постоянный
-//        //zooKeeper.create("/servers", Integer.toString(port).getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
-//        //временный , будет удаляться после завершения программы, пересоздается при перезапуске
-//        zooKeeper.create(
-//                "/servers/" + Integer.toString(port),
-//                Integer.toString(port).getBytes(),
-//                ZooDefs.Ids.OPEN_ACL_UNSAFE,
-//                CreateMode.EPHEMERAL
-//        );
-//
-//        zooKeeper.getChildren("/servers", new UpdWatcher());     // tut mi poluchaem dannie o tekuwix serverax
-//
-//        /*//---------------------------
-//        //отправляем список серверов на getActor
-//
-//        List<String> servers = new ArrayList<>();
-//        try {
-//            servers = zooKeeper.getChildren("/servers/", this);        //отправляем список серверов на getActor
-//        }catch (KeeperException | InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//        List<String> serverData = new ArrayList<>();
-//        getServersInfo(servers, serverData);
-//        // --------------------
-//        */
-//    }
-/*
     private static void getServersInfo(List<String> servers, List<String> serverData) {
-        for(String s: servers){
+        for (String s : servers) {
             byte[] data = new byte[0];
             try {
                 data = zooKeeper.getData("/servers/" + s, false, null);
@@ -227,22 +150,12 @@ public static class UpdWatcher implements Watcher {
             //System.out.print(data.toString());
             //System.out.print(zooKeeper.getData("/servers" + s, c -> {}, null).toString());
         }
-    }*/
-    private static void getServersInfo(List<String> servers, List<String> serversData) {
-        for (String s : servers) {
-            byte[] data = new byte[0];
-            try {
-                data = zooKeeper.getData("/servers/" + s, false, null);
-            } catch (KeeperException | InterruptedException e) {
-                e.printStackTrace();
-            }
-            serversData.add(new String(data));
-        }
     }
+
     //передаем storeActore список серверов
 
 
-    /* CompletionStage<HttpResponse> fetchToServer (int port, String url, int parsedCount) {
+    CompletionStage<HttpResponse> fetchToServer(int port, String url, int parsedCount) {
         try {
             return http.singleRequest(
                     HttpRequest.create("http://localhost:" + Integer.toString(port) + "/?url=" + url + "&count=" +
@@ -253,27 +166,7 @@ public static class UpdWatcher implements Watcher {
     }/
 
 
-//пример вызова http клиента
-     CompletionStage<HttpResponse> fetch(String url) {
-        try {
-            return http.singleRequest(
-                    HttpRequest.create(url));
-        } catch (Exception e) {
-            return CompletableFuture.completedFuture(HttpResponse.create().withEntity(NOT_FOUND));
-        }
-    }
-
-*/
-    CompletionStage<HttpResponse> fetchToServer(int port, String url, int parsedCount) {
-        try {
-            return http.singleRequest(
-                    HttpRequest.create("http://localhost:" + Integer.toString(port) + "/?url=" + url + "&count=" +
-                            Integer.toString(parsedCount - 1)));
-        } catch (Exception e) {
-            return CompletableFuture.completedFuture(HttpResponse.create().withEntity(NOT_FOUND));
-        }
-    }
-
+    //пример вызова http клиента
     CompletionStage<HttpResponse> fetch(String url) {
         try {
             return http.singleRequest(
@@ -283,7 +176,8 @@ public static class UpdWatcher implements Watcher {
         }
     }
 
-    /*private Route route() {
+
+    private Route route() {
         return concat(
                 get(
                         () -> parameter(URL, url ->
@@ -291,9 +185,9 @@ public static class UpdWatcher implements Watcher {
                                     int parsedCount = Integer.parseInt(count);
                                     if (parsedCount != 0) {
                                         CompletionStage<HttpResponse> response = Patterns.ask(storageActor, new GetRandomServerPort(Integer.toString(port)), java.time.Duration.ofMillis(TIMEOUT))
-                                              .thenCompose(req ->
-                                              fetchToServer((int) req, url,parsedCount)
-                                              );
+                                                .thenCompose(req ->
+                                                        fetchToServer((int) req, url, parsedCount)
+                                                );
                                         return completeWithFuture(response);
                                     }
                                     try {
@@ -305,32 +199,6 @@ public static class UpdWatcher implements Watcher {
                                 }))
                 )
         );
-    }*/
-    private Route route() {
-        return concat(
-                get(
-                        () -> parameter(URL, url ->
-                                parameter(COUNT, count -> {
-                                            int parsedCount = Integer.parseInt(count);
-                                            if (parsedCount != 0) {
-                                                CompletionStage<HttpResponse> response = Patterns.ask(storageActor, new GetRandomServerPort(Integer.toString(port)), java.time.Duration.ofMillis(TIMEOUT))
-                                                        .thenCompose(req ->
-                                                                fetchToServer((int) req, url, parsedCount)
-                                                        );
-                                                return completeWithFuture(response);
-                                            }
-                                            try {
-                                                return complete(fetch(url).toCompletableFuture().get());
-                                            } catch (InterruptedException | ExecutionException e) {
-                                                e.printStackTrace();
-                                                return complete(URL_ERROR_MESSAGE);
-                                            }
-
-                                        }
-                                )
-                        )
-                )
-        );
-
     }
+
 }
