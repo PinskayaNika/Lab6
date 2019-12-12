@@ -65,11 +65,21 @@ public class StoreActor extends AbstractActor {
 
     @Override
     public Receive createReceive() {
-        return ReceiveBuilder.create().match(
-                ServerMessage.class,
-                msg -> {
-                    serversPortList = msg.getServerPort();
-                })
+        return ReceiveBuilder.create()
+
+                //принимает список серверов (который отправит zookeeper watcher)
+                .match(
+                        ServerMessage.class,
+                        msg -> {
+
+                            for(String s : msg.getServerPort()){
+                                System.out.println(s);
+                            }
+
+                            serversPortList = msg.getServerPort();
+                        })
+
+                //принимает запрос на получение случайного сервера
                 .match(
                         GetRandomServerPort.class,
                         msg -> {
