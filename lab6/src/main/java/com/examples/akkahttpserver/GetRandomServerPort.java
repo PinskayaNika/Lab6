@@ -1,13 +1,13 @@
 package com.examples.akkahttpserver;
 
-class GetRandomServerPort {
+public class GetRandomServerPort {
     private String randomPort;
 
-    GetRandomServerPort(String port) {
+    public GetRandomServerPort(String port) {
         this.randomPort = port;
     }
 
-    String getRandomPort() {
+    public String getRandomPort() {
         return this.randomPort;
     }
 }
