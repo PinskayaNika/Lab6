@@ -72,9 +72,9 @@ public class StoreActor extends AbstractActor {
                         ServerMessage.class,
                         msg -> {
 
-//                            for(String s : msg.getServerPort()){
-//                                System.out.println(s);
-//                            }
+                            for(String s : msg.getServerPort()){
+                                System.out.println(s);
+                            }
 
                             serversPortList = msg.getServerPort();
                         })
