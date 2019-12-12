@@ -72,6 +72,7 @@ public class StoreActor extends AbstractActor {
                         ServerMessage.class,
                         msg -> {
 
+                            //вывод номеров подключенных портов
                             for(String s : msg.getServerPort()){
                                 System.out.println(s);
                             }
