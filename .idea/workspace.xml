@@ -25,7 +25,7 @@
         <entry file="file://$PROJECT_DIR$/lab6/src/main/java/com/examples/akkahttpserver/AkkaHttpServer.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="413">
-              <caret line="63" column="24" selection-start-line="63" selection-start-column="20" selection-end-line="63" selection-end-column="24" />
+              <caret line="169" column="19" selection-start-line="169" selection-start-column="4" selection-end-line="169" selection-end-column="19" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -90,6 +90,8 @@
       <find>store</find>
       <find>rando</find>
       <find>request</find>
+      <find>get(</find>
+      <find>completionstage</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -689,7 +691,7 @@
     <entry file="file://$PROJECT_DIR$/lab6/src/main/java/com/examples/akkahttpserver/AkkaHttpServer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="413">
-          <caret line="63" column="24" selection-start-line="63" selection-start-column="20" selection-end-line="63" selection-end-column="24" />
+          <caret line="169" column="19" selection-start-line="169" selection-start-column="4" selection-end-line="169" selection-end-column="19" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
