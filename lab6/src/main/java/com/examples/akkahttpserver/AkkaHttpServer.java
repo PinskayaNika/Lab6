@@ -166,7 +166,7 @@ public class AkkaHttpServer extends AllDirectives {
     }
 
 
-    //пример вызова http клиента
+    //пример вызова http клиента, встроенного в акка
     CompletionStage<HttpResponse> fetch(String url) {
         try {
             return http.singleRequest(
