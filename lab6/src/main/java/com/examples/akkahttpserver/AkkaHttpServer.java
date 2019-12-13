@@ -177,12 +177,14 @@ public class AkkaHttpServer extends AllDirectives {
     }
 
 
+    //создаем с помощью api route в акка http сервер который принимает два параметра (url и count)
     private Route route() {
         return concat(
                 get(
                         () -> parameter(URL, url ->
                                 parameter(COUNT, count -> {
                                     int parsedCount = Integer.parseInt(count);
+                                    //
                                     if (parsedCount != 0) {
                                         CompletionStage<HttpResponse> response = Patterns.ask(storageActor, new GetRandomServerPort(Integer.toString(port)), java.time.Duration.ofMillis(TIMEOUT))
                                                 .thenCompose(req ->
