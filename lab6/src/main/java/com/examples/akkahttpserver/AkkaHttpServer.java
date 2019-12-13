@@ -184,12 +184,15 @@ public class AkkaHttpServer extends AllDirectives {
                         () -> parameter(URL, url ->
                                 parameter(COUNT, count -> {
                                     int parsedCount = Integer.parseInt(count);
-                                    //если счетчик не равен 0, то сначала получает новый урл сервера (от актора хранилища конфигурации) и делает запрос к нему с аналогичными query параметрами (url, counter) но счетчиком на 1 меньше
+
+                                    //если счетчик не равен 0, то сначала получает новый урл сервера (от актора хранилища конфигурации)
+                                    // и делает запрос к нему с аналогичными query параметрами (url, counter) но счетчиком на 1 меньше
                                     if (parsedCount != 0) {
                                         CompletionStage<HttpResponse> response = Patterns.ask(storageActor, new GetRandomServerPort(Integer.toString(port)), java.time.Duration.ofMillis(TIMEOUT))
                                                 .thenCompose(req ->
                                                         fetchToServer((int) req, url, parsedCount)
                                                 );
+                                        //Либо осуществляет  запрос по url из параметра
                                         return completeWithFuture(response);
                                     }
                                     try {
