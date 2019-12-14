@@ -81,6 +81,7 @@ public class AkkaHttpServer extends AllDirectives {
                 .thenAccept(unbound -> system.terminate());
     }
 
+    //отправляем список серверов на getActor
     public static class UpdWatcher implements Watcher {
 
         @Override
